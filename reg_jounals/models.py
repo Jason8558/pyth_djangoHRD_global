@@ -132,7 +132,7 @@ class LaborContract(models.Model):
     lc_pos = models.CharField(max_length=256, help_text="Введите должность", verbose_name="Должность", db_index=True, default=' ')
     lc_dep = models.ForeignKey('Departments', related_name="departments", on_delete=models.CASCADE, verbose_name="Подразделение ", default="1")
     lc_dateOfInv = models.DateField(help_text="Введите дату приема на работу", verbose_name="Дата приема на работу", db_index=True)
-    lc_workCond = models.TextField(help_text="Введите условие работы", max_length=256, verbose_name="Условие работы", db_index=True)
+    lc_workCond = models.CharField(help_text="Введите условие работы", max_length=256, verbose_name="Условие работы", db_index=True)
     lc_res_officer = models.CharField(blank=True, editable=False,  max_length=256, help_text="Сотрудник, который внес документ в систему ", verbose_name='Ответственный сотрудник')
 
     class Meta:
