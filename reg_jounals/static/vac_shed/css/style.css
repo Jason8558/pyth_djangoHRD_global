@@ -1,0 +1,246 @@
+* {
+font-family: sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;}
+
+.not-print {
+  display: none;
+}
+
+select, input, textarea  {
+border: 2px solid #0d6efd;
+padding: 4px;
+background: #efefef;
+border-radius: 12px;
+}
+
+body {
+ background: #e0edff ;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background: #e0edff;
+  border-radius: 17px;
+  border: 3px solid #0d6efd;
+  padding: 11px;
+  border-radius: 17px;
+  margin: 10px 10px;
+  box-shadow: 0px 0px 5px 1px black;
+  }
+
+header .header-main * {
+  float: left;
+}
+
+header img {
+  width: 39px;
+}
+
+.container {width: 700px;margin: 0px auto;margin-top: 24px;}
+
+.vs-create {width: 85%;}
+
+table {
+  border-collapse: collapse;
+text-align: center;width: 100%;margin-top: 19px;}
+
+table tr {
+page-break-before: avoid;}
+
+thead {background: #0d6efd;}
+tbody {background: white;}
+
+
+.button {background: #e0edff ;padding: 10px;/* margin: 0px; */text-decoration: none;text-transform: uppercase;color: black;border-radius: 9px;cursor: pointer;text-align: center;
+transition: 0.3s;}
+
+.button:hover{
+background: #3e3e00;
+color: white;
+box-shadow: 0px 0px 6px 2px #0d6efd;
+}
+
+.add {width: 100%;float: left;margin-bottom: 14px;background: #2dbbff;}
+
+td,th {border: 1px solid black;}
+
+tbody tr:hover {
+  cursor:
+  pointer;
+  background: #ffffd7;
+  text-decoration:
+  underline;
+  transition: 0.3s;
+  color: black;
+  /* border: 2px solid #0d6efd; */
+  }
+
+.vs-form {
+background: white;
+padding: 9px;
+border: 3px solid #0d6efd;
+display: flex;
+flex-flow: column;
+justify-content: center;
+width: 321px;
+align-items: stretch;
+margin: 0 auto;
+float: none;
+}
+
+.vs-form input, .vs-form button, .vs-form select {
+margin-bottom: 14px;
+}
+
+.vs-form div {
+  display: flex;
+  flex-flow: column;
+}
+
+.accept {
+background: #7bed7b;
+border-color: green;
+}
+
+.back {
+border-color: black;
+border: 1px solid;
+margin-right: 16px;
+}
+
+.global {
+display: flex;
+flex-direction: row;
+align-items: stretch;
+justify-content: space-evenly;
+/* box-sizing: content-box; */
+width: 100%;
+margin: 0;
+box-shadow: 0px 0px 5px 2px black;
+flex-wrap: nowrap;
+align-content: center;
+}
+
+.global * {
+margin: 0 !important;
+}
+
+#vs-glob-year {
+      width: 48px;
+      text-align: center;
+}
+
+.print {
+  display: none;
+}
+
+.cancel {
+background: #ff7272;
+/* border-color: #600101; */
+border: 2px solid #600101;
+}
+
+.emp {
+  text-align: left !important;
+}
+
+.cover {
+    float: right;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.cover table {
+    float: right;
+    width: 686px;
+    margin-right: 20px;
+}
+
+.cover table * {
+    border: none !important;
+}
+
+#prof {
+    float: left;
+}
+
+#vs_glob_emp_chosen {
+width: 100% !important;
+}
+
+#vs_glob_dep_chosen .chosen-container-single .chosen-single {
+
+}
+
+.chosen-container-single .chosen-single {
+    height: 100% !important;
+    border: 2px solid #0d6efd !important;
+    padding: 4px !important;
+    background: #efefef !important;
+    border-radius: 12px !important;
+}
+
+.vs-glob-emp-cont {
+position: fixed;
+padding: 7px;
+background: white;
+border: 5px solid #0d6efd;
+right: 7px;
+z-index: 99;
+box-shadow: 0px 0px 10px 0px black;
+top: 173px;
+display: flex !important;
+flex-direction: column;
+width: 431px;
+justify-content: center;
+}
+
+.vs-glob-emp-cont * {
+    margin-bottom: 6px !important;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+
+
+
+  }
+
+  #footer {
+    margin-top: 35px;
+}
+
+    #footer td {
+    border: none;
+}
+
+  body {
+      zoom: 50%;
+  }
+
+  table {page-break-before: avoid;
+  page-break-inside: auto  !important;
+  border-bottom: none !important}
+  .container {
+    width: 100%;
+}
+  .print {display: inherit !important;}
+
+  .print-sign {display: table-cell !important;}
+
+  body {padding: 0 !important;}
+
+  h1 {font-family: sans-serif !important; }
+
+  header {display: none;}
+
+}
