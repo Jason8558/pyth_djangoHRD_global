@@ -1,0 +1,83 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Приказы на отпуск{%endblock%}
+{%block header%} <a class="btn btn-dark" href="../"> < Назад</a> Журнал регистрации приказов на отпуск. Всего: {{count}}.  {%endblock%}
+{%block content%}
+<div id="frame_" class="frame vacantion">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
+
+
+<form action="{% url 'orders_on_vacation_new' %}">
+  <input type="search" name="vac_search" placeholder="Поиск по ФИО..">
+  <select class="" name="vac_dep_search">
+    {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep.dep_name}}</option>
+    {%endfor%}
+  </select>
+
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+</form>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add " href="{% url 'orders_on_vacation_new_add_url'%}" > + Добавить</a> -->
+<button type="button" id="btn-add" class="btn btn-success btn-sm m-bottom btn-add " onclick="open_frame_new()" > + Добавить</button>
+{% if orders %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+    <th scope="col">Дата приказа</th>
+    <th scope="col">Номер</th>
+    <th scope="col">Ответственный сотрудник</th>
+
+
+  </tr>
+  </thead>
+
+  {%for order in orders%}
+
+<tr id="{{order.id}}" onclick="return location.href = '{% url 'orders_on_vacation_new_create_url' id=order.id%}' ">
+
+    <td id="date">{{order.order_date|date:"d.m.Y"}}</td>
+    <td id="number">{{order.order_number}}</td>
+    <td id="res_officer">{{order.res_officer}}</td>
+
+</tr>
+  {%endfor%}
+</table>
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in orders.paginator.page_range %}
+  {% if orders.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if orders.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{orders.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+{%endblock%}

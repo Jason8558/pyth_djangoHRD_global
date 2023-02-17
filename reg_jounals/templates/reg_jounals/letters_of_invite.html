@@ -1,0 +1,83 @@
+{%extends "reg_jounals/index.html" %}
+
+{%block title%}Заявления на прием{%endblock%}
+{%block header%}<a class="btn btn-dark" href="../">< назад</a> Журнал регистрации заявлений на прием. Всего: {{count}}.  {%endblock%}
+{%block content%}
+<div id="frame_" class="frame">
+  <iframe id="iframe" src="" width="" height=""></iframe>
+  <button type="button" class="btn btn-success" onclick="send_submit()" name="button">Сохранить</button>
+  <button type="button" onclick="close_frame()"class="btn btn-outline-danger" name="button">Отмена</button>
+</div>
+<form action="{% url 'invite' %}">
+  <input type="search" name="loi_search" placeholder="Поиск по ФИО..">
+  <button class="btn btn-sm btn-dark" type="submit" name="" value="Найти">Найти</button>
+</form>
+<!-- <a class="btn btn-success btn-lg m-bottom btn-add" href="{% url 'invite_add' %}"> + Добавить</a> -->
+<button class="btn btn-success btn-lg m-bottom btn-add " type="button" name="button" onclick="open_frame_new()"> + Добавить</button>
+{% if letters %}
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+    <th scope="col">Номер</th>
+    <th scope="col">Дата поступления</th>
+    <th scope="col">Принимаемый</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Дата начала работы</th>
+    <th scope="col">Ответственный сотрудник</th>
+
+
+  </tr>
+  </thead>
+
+  {%for let in letters%}
+
+  <tr id="{{let.id}}" onclick="open_for_upd({{let.id}})">
+
+    <td id="number">{{let.loi_number}}</td>
+    <td id="date">{{let.loi_date|date:"d.m.Y"}}</td>
+    <td id="emloyer">{{let.loi_employee}}</td>
+    <td id="pos">{{let.loi_position}}</td>
+    <td id="dep">{{let.loi_department}}</td>
+    <td id="dateofinv">{{let.loi_dateOfInv|date:"d.m.Y"}}</td>
+    <td id="res_officer">{{let.loi_res_officer}}</td>
+
+</tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Записей нет</h2>
+{%endif%}
+
+<nav  class="paginator" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+<span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+{% for p in letters.paginator.page_range %}
+  {% if letters.number == p%}
+   <li class="page-item active"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+   {%else%}
+        <li class="page-item"><a class="page-link" href="?page={{p}}">{{ p }}</a></li>
+    {%endif%}
+  {% endfor %}
+
+{%if letters.has_next%}
+    <li class="page-item">
+      <a class="page-link" href='?page={{letters.next_page_number}}' aria-label="Next">
+<span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  {%else%}
+  <li class="page-item disabled">
+    <a class="page-link" href='#' aria-disabled='true' aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {%endif%}
+  </ul>
+</nav>
+
+{%endblock%}

@@ -1,0 +1,97 @@
+{% extends 'TURV/index.html'%}
+
+{%block title%}Сотрудники{% endblock %}
+
+{%block header%}  <a class="btn btn-dark" href=".."> < Назад </a> | Сотрудники. Всего: {{count}}.{%endblock%}
+
+{% block body %}
+
+<form  class="f_search"  action="{% url 'emp_list'%}" >
+<p><u>ПОИСК: </u></p>
+  <input type="text" name="emp" placeholder="Поиск по ФИО..." value="">
+
+
+<label for="emp_dep_search">Подразделение: </label>
+  <select class="" name="emp_dep">
+    <option value="">---</option>
+    {% for dep in deps%}
+      <option value="{{dep.id}}">{{dep}}</option>
+      {% endfor%}
+  </select>
+    <label for="emp_shift">Режим работы: </label>
+    <select class="" name="emp_shift">
+      <option value="">---</option>
+      <option value="1">Сменные</option>
+      <option value="2">Дневные</option>
+    </select>
+
+    <input class="btn btn-dark"type="submit" name="" value="Найти">
+
+</form>
+
+<div class="container">
+  <a class="btn btn-success btn-add"  href="{% url 'emp_new'%}"  >+ Новый сотрудник</a>
+
+{%if employers%}
+
+<table>
+  <thead class="thead-dark">
+  <tr class="tr-header">
+
+
+    <th scope="col">ФИО</th>
+    <th scope="col">Должность</th>
+    <th scope="col">Подразделение</th>
+    <th scope="col">Ступень оплаты</th>
+    <th scope="col">Разряд\категория</th>
+    <th scope="col">Сменный персонал</th>
+
+
+
+
+  </tr >
+  </thead>
+
+  {%for emp in employers %}
+
+  {% if emp.fired %}
+  <tr style="text-decoration: line-through" onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+
+
+    <td>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.department}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+    <td>{{emp.level}}</td>
+    {% if emp.shift_personnel %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
+  {%else%}
+
+  <tr  onclick="return location.href = '{% url 'emp_upd' id=emp.id%}' " >
+
+
+    <td>{{emp.fullname}}</td>
+    <td>{{emp.position}}</td>
+    <td>{{emp.department}}</td>
+    <td>{{emp.positionOfPayment}}</td>
+    <td>{{emp.level}}</td>
+    {% if emp.shift_personnel %}
+    <td>✅</td>
+    {%else%}
+    <td>❌</td>
+    {%endif%}
+
+{%endif%}
+
+  </tr>
+  {%endfor%}
+</table>
+{%else%}
+<h2>Сотрудники не найдены</h2>
+{%endif%}
+</div>
+{%endblock%}

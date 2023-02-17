@@ -1,0 +1,28 @@
+{% extends "reg_jounals/index.html" %}
+
+{%block title%}Добавить запись{% endblock %}
+{%block header%}Добавить запись - Удостоверение{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" role="alert">
+{{form.errors}}
+</div>
+{%endif%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
+<form class="add_form" action="" method="post">
+  {% csrf_token %}
+  <h5>Номер удостоверения: <span id="next_num">{{next_num}}</span></h5>
+  {% for field in form %}
+  <p>{{field.label}}{{ field }}</p>
+  {% endfor%}
+
+
+</form>
+
+{%endblock%}

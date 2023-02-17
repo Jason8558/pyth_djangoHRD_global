@@ -1,0 +1,48 @@
+{% extends "reg_jounals/index.html" %}
+
+
+
+{%block title%}Новый б\л{% endblock %}
+{%block header%}Создать больничный лист{% endblock %}
+
+{%block content%}
+{% if form.errors%}
+
+<div class="alert alert-danger mt-5" id="form_error" role="alert">
+  <ul>
+  {{errs}}
+  </ul>
+
+
+</div>
+{%endif%}
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('header').css('display','none')
+    $('body').css('background', 'white !important') })
+</script>
+<form class="add_form sick_list" action="" method="post">
+  {% csrf_token %}
+
+
+
+  <p>Номер реестра: {{reg_num}}</p>
+
+  <p>{{form.sd_number.label}}{{form.sd_number}}  <a class="btn btn-warning btn-sm" type="button" style="margin-top: 7px;" onclick="check_SickDoc()" > Проверить номер </a></p>
+  <p>{{form.sd_emp.label}}{{form.sd_emp}}</p>
+  <p>{{form.sd_pos.label}}{{form.sd_pos}}</p>
+  <p>{{form.sd_dep.label}}{{form.sd_dep}}</p>
+  <p>{{form.sd_dur_from.label}}{{form.sd_dur_from}}</p>
+  <p>{{form.sd_dur_to.label}}{{form.sd_dur_to}}</p>
+  <p>{{form.sd_comm.label}}{{form.sd_comm}}</p>
+
+
+
+<!-- <input class="btn btn-success" onclick="ClearEnter()" type="submit" value="Добавить больничный лист в реестр" />
+
+
+
+  <a class="btn btn-outline-danger" href="/sick_regs">Отмена</a> -->
+</form>
+
+{%endblock%}
