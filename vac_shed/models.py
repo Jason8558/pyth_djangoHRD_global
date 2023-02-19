@@ -46,7 +46,7 @@ class VacantionReasons(models.Model):
     class Meta:
         ordering = ['name']
         verbose_name = 'Причина отсутствия'
-        verbose_name_plura = 'Причины отсутствия'
+        verbose_name_plural = 'Причины отсутствия'
     def __str__(self):
         return self.name
 
