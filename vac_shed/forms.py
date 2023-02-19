@@ -21,8 +21,10 @@ class Vacshed_form(forms.Form):
             self.fields['dep'].queryset = Department.objects.all()
 
     def saveFirst(self, user_):
-
-        next_id = int(VacantionShedule.objects.latest('id').id) + 1
+        if len(VacantionShedule.objects.all()) > 1:
+            next_id = int(VacantionShedule.objects.latest('id').id) + 1
+        else:
+            next_id = 0
         logs.objects.create(
             date = DT.datetime.now(),
             event = logs_event.objects.get(id=3),
