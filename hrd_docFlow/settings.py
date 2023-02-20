@@ -34,9 +34,9 @@ ALLOWED_HOSTS = ['*']
 
 
 AUTHENTICATION_BACKENDS = (
-    
+
     'django.contrib.auth.backends.ModelBackend',
-     
+
 )
 
 # Application definition
@@ -99,17 +99,30 @@ WSGI_APPLICATION = 'hrd_docFlow.wsgi.application'
 #     }
 #         }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'hrd_docflow',
+#         'USER': 'hrd_user',
+#         'PASSWORD': 'hrdpassword',
+#         # 'HOST': '172.16.23.38',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hrd_docflow',
+        'NAME': 'hrd_docflow_test',
         'USER': 'hrd_user',
         'PASSWORD': 'hrdpassword',
-        # 'HOST': '172.16.23.38',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': '188.120.254.148',
+        # 'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
+
 
 
 

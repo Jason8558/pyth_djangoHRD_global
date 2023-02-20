@@ -9,7 +9,7 @@ function getvacshed(granted,check) {
     rowspan = 0
     for (var i = 0; i < data.length; i++) {
 
-      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].move_reason, data[i].days_count_move, data[i].child_year, data[i].city, granted, data[i].comm))
+      $('.vs-table-create tbody').append(formrow(data[i].id, data[i].emp ,data[i].emp__fullname, data[i].emp__position__name, data[i].reason__name, data[i].shift__name, data[i].dur_from, data[i].dur_to, data[i].days_count, data[i].move_from, data[i].move_to, data[i].move_reason, data[i].days_count_move, data[i].child_year, data[i].city, granted, data[i].comm))
 
 
     }
@@ -24,7 +24,7 @@ function getvacshed(granted,check) {
 
 }
 
-function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, days_count, move_from, move_to, move_reason, days_count_move, child_year, city, granted, comm){
+function formrow(id, emp, emp__fullname, emp__position__name, reason__name, shift__name, dur_from, dur_to, days_count, move_from, move_to, move_reason, days_count_move, child_year, city, granted, comm){
   dur_from = dur_from.toString().split('-')
   dur_from = dur_from[2]+'.'+dur_from[1]+'.'+dur_from[0]
 
@@ -65,12 +65,9 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 
 
 
-  if (granted == 0) {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_'+ id +'_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td class="totaldays'+emp+'"> ' + days_count + '</td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
-  }
-  else {
-    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="movefrom">'+ move_from + ' - ' + move_reason + '</td><td class="movecount_'+ emp +'">'+ days_count_move +'</td><td id="comm_' + id + '"  class="comm">'+ comm +'</td><td class="totaldays'+emp+'"> '+ days_count + ' </td><td class="child' + emp + '">'+child_year+'</td><td id="city_'+ id + '" class="city city' + emp + '">'+city+'</td><td class="print print-sign sign sign'+ emp +'"></td></tr>'
-  }
+
+    row = '<tr class="vs_row" id="'+ id + '_' + emp + '"><td>' + shift__name + '</td><td>Служба?</td><td id="emp_' + emp + '" class="emp '+emp+'">' + emp__fullname + ' | ' + emp__position__name + '</td><td>' + reason__name + '</td><td id="durfrom_' + id + '_' + emp + '">' + dur_from + '</td><td class="count_'+ emp + '">' + days_count + '</td><td id="movefrom' + id + '" class="dur_to">'+ dur_to + '</td><td class="totaldays'+emp+'"> '+ days_count + ' </td></tr>'
+
 
   return row
 }
@@ -78,11 +75,8 @@ function formrow(id, emp, emp__fullname, emp__position__name, dur_from, dur_to, 
 function emp(rid,id,check,granted){
   rows_emp = $('.' + id)
   tdays = $('.count_' + id)
-  tmovedays = $('.movecount_' + id)
   tcell = $('.totaldays' + id)
-  tchild = $('.child' + id)
-  tcity = $('.city' + id)
-  tsign = $('.sign' + id)
+
 
   length = rows_emp.length
 
@@ -92,32 +86,19 @@ function emp(rid,id,check,granted){
     for (var i = 1; i < length; i++) {
       rows_emp[0].rowSpan = rows_emp.length
       tcell[0].rowSpan = rows_emp.length
-      tchild[0].rowSpan = rows_emp.length
-      tcity[0].rowSpan = rows_emp.length
-      tsign[0].rowSpan = rows_emp.length
+
       rows_emp[0].parentElement.style.borderTop = '2px solid black'
       totaldays = totaldays + parseInt(tdays[i].innerText)
-if (tmovedays.length != 0) {
-      if (tmovedays[i].innerText) {
-        totaldays = totaldays - parseInt(tdays[i].innerText)
-        totaldays = totaldays + parseInt(tmovedays[i].innerText)
-      }
-    }
+
 
 
 
       rows_emp[i].remove()
       tcell[i].remove()
-      tcity[i].remove()
-      tchild[i].remove()
-      tsign[i].remove()
     }
 
 
-if (tmovedays.length != 0) {
-  if (tmovedays[0].innerText) {
-  tcell[0].innerText = totaldays+parseInt(tmovedays[0].innerText)}
-}
+
     tcell[0].innerText = totaldays+parseInt(tdays[0].innerText)
 
 

@@ -206,7 +206,7 @@ def vacshed_create(request,vs):
 
 def getvacshed_json(request, vs):
     if request.user.is_authenticated:
-        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'move_reason', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp', 'dur_from')
+        items = VacantionSheduleItem.objects.filter(bound_shed=vs).values('id', 'emp', 'emp__fullname', 'reason__name', 'shift__name', 'dur_from', 'dur_to', 'days_count', 'move_from', 'move_to', 'move_reason', 'child_year', 'days_count_move', 'city', 'emp__position__name', 'comm').order_by('emp', 'dur_from')
         items = list(items)
         return JsonResponse(items, safe=False)
 
@@ -215,11 +215,15 @@ def vacshed_addItem(request,id):
         vacshed = VacantionShedule.objects.get(id=id)
         employers = Employers.objects.filter(department_id=vacshed.dep_id).filter(fired=0)
         employers = list(employers)
+        shifts = VacantionShifts.objects.all()
+        reasons = VacantionReasons.objects.all()
         if request.method == 'GET':
-            return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
+            return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed, 'shifts':shifts, 'reasons':reasons})
         if request.method == 'POST':
             periods = request.POST.get('vac-form-all-periods')
             empl = request.POST.get('vac_emp')
+            reason = request.POST.get('vac_reason')
+            shift = request.POST.get('vac_shift')
             dfrom = request.POST.get('per-date-from')
             dto = request.POST.get('per-date-to')
             dcount = request.POST.get('per-days-count')
@@ -239,7 +243,9 @@ def vacshed_addItem(request,id):
                             days_count = periods[i].split(':')[2],
                             bound_shed = vacshed,
                             city = city,
-                            child_year = child
+                            child_year = child,
+                            reason = VacantionReason.objects.get(id=reason),
+                            shift = VacantionShifts.objects.get(id=shift)
                         )
                     else:
                         VacantionSheduleItem.objects.create(
@@ -248,6 +254,8 @@ def vacshed_addItem(request,id):
                             dur_to = periods[i].split(':')[1],
                             days_count = periods[i].split(':')[2],
                             bound_shed = vacshed,
+                            reason = VacantionReason.objects.get(id=reason),
+                            shift = VacantionShifts.objects.get(id=shift)
 
                         )
 

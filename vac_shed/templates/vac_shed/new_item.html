@@ -9,30 +9,37 @@
       {% csrf_token %}
 
 <div class="vs-form-main">
+  <label for="vac_shift">Смена:</label>
+  <select name="vac_shift" id="vac_shift">
+    {% for shift in shifts %}
+      <option value="{{shift.id}}">{{shift.name}}</option>
+    {% endfor %}
+  </select>
   <label for="vac_emp">Сотрудник: </label>
   <select id="vac_emp" class="" name="vac_emp">
-
-
   </select>
-  <label for="city">Проезд</label>
-  <input  id="city" type="text" placeholder="Город" name="city" value="">
-  <label for="child">Иждивенец (год рождения): </label>
-  <input type="text" name="child" placeholder="Год рождения" value="">
+  <label for="vac_reason">Причина отсутствия: </label>
+  <select name="vac_reason" id="vac_reason">
+    {% for reason in reasons %}
+      <option value="{{reason.id}}">{{reason.name}}</option>
+    {%endfor%}
+  </select>
 </div>
   <div id="vac-form-periods" class=".vac-form-periods">
 
     <div class="vac-period">
-      <label for="per-date-from">Отпуск с: </label>
+      <label for="per-date-from">Отсутствие с: </label>
       <input id="per-date-from" type="date" name="per-date-from" value="">
 
       <label for="per-date-to">по: </label>
       <input id="per-date-to" onchange="" type="date" name="per-date-to" readonly    value="">
+      <label for="per-days-count">на следующее кол-во дней:</label>
       <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
     </div>
 
   </div>
 
-<button type="button" class="button" id="form-add-period" name="button">+ Добавить период</button>
+
 <input class="button accept" type="submit" name="" value="Добавить в график">
 <textarea style="display: none;" id="vac-form-all-periods" name="vac-form-all-periods"></textarea>
   </form>

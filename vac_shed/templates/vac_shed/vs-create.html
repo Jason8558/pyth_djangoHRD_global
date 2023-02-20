@@ -34,20 +34,14 @@
 
 <table class="vs-table-create">
   <thead>
-    <th>Сотрудник</th>
-    <th>Дата</th>
-    <th>Дни</th>
-    {% if granted %}
-    <th>Перенос</th>
-    <th>Дней после переноса</th>
-    <th>Комментарий</th>
-    {% else %}
-    {%endif%}
+    <th>Смена</th>
+    <th>Служба</th>
+    <th>Сотрудник/должность</th>
+    <th>Причина</th>
+    <th>Дата начала</th>
+    <th>Продолжительность</th>
+    <th>Дата окончания</th>
     <th>Всего дней</th>
-    <th>Иждивенец (год р-я)</th>
-    <th>Проезд</th>
-
-    <th class="print print-sign sign">Ознакомлен</th>
   </thead>
   <tbody>
     {% for i in items %}

@@ -20,6 +20,7 @@ class VacantionShedule(models.Model):
 class VacantionSheduleItem(models.Model):
     bound_shed = models.ForeignKey('VacantionShedule', on_delete=models.CASCADE)
     emp = models.ForeignKey('TURV.Employers', on_delete = models.CASCADE, verbose_name="Сотрудник")
+    shift = models.ForeignKey('VacantionShifts', null=True, blank=True, on_delete=models.CASCADE, verbose_name='Смена')
     reason = models.ForeignKey('VacantionReasons', null=True, blank=True, on_delete=models.CASCADE, verbose_name='Причина отсутствия')
     dur_from = models.DateField(verbose_name="Период с")
     dur_to = models.DateField(verbose_name="Период по")
@@ -39,7 +40,7 @@ class VacantionSheduleItem(models.Model):
     def __str__(self):
         name = self.emp.fullname + ' ' +str(self.bound_shed.year)
         return name
-    
+
 class VacantionReasons(models.Model):
     name = models.CharField(verbose_name='Наименование', max_length=100, null=False, blank=False)
 
@@ -50,4 +51,13 @@ class VacantionReasons(models.Model):
     def __str__(self):
         return self.name
 
+class VacantionShifts(models.Model):
+    name = models.CharField(verbose_name='Наименование', max_length=100, null=False, blank=False)
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Смена'
+        verbose_name_plural = 'Смены'
+    def __str__(self):
+        return self.name
 # Create your models here.
