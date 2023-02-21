@@ -12,6 +12,23 @@ console.log(date_to.toString('yyyy-MM-dd'));
   return(date_to.toString('yyyy-MM-dd'))
 }
 
+function vac_calc() {
+
+  date_from = $('#per-date-from').val()
+  date_from_new = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+  
+  date_to = $('#per-date-to').val()
+  date_to_new = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+  
+  dcount = (( Date.parse(date_to_new) - Date.parse(date_from_new)) / 24 / 60 / 60 / 1000) + 1
+  
+  $('#per-days-count').val(dcount)
+  
+  
+  // $('#id_days_count2').val(dcount - 1)
+  // ======================================================================================================
+  }
+
 function celebrates(date_from, date_to, id) {
   date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
   date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]

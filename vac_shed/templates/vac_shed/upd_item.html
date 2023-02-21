@@ -5,69 +5,40 @@
 {%block header%}  <div class="header-main"><a class="button back" href="/vacshed/create/{{item.bound_shed.id}}"> < НАЗАД</a><h1>Изменить позицию - {{item.emp.fullname}} период с {{item.dur_from}}</h1></div>{%endblock%}
 {% block body %}
 <div class="container">
-  <form class="vs-form add" id='addform' action="{%url 'upditem_url' id=item.id type=type%}" method="post">
+  <form class="vs-form add" id='addform' action="{%url 'upditem_url' id=item.id%}" method="post">
       {% csrf_token %}
 
 <div class="vs-form-main">
-{%if type == 1%}
-  <h4>Введите новые данные</h4>
-  <label for="city">Проезд</label>
-  <input  id="city" type="text" placeholder="Город" name="city" value="{{item.city}}">
-  <label for="child">Иждивенец (год рождения): </label>
-  <input type="text" name="child" placeholder="Год рождения" value="{{item.child_year}}">
+
+<h4>Введите новые данные</h4>
+
+<label for="vac-shift">Смена:</label>
+<select name="vac-shift" id="vac-shift">
+  {% for s in shifts %}
+    <option value="{{s.id}}">{{s.name}}</option>
+  {% endfor %}
+</select>
+
+<label for="vac-reason">Причина:</label>
+<select name="vac-reason" onload="set_reason({{item.reason.id}})" id="vac-reason">
+  {% for r in reasons%}
+    <option value="{{r.id}}">{{r.name}}</option>
+  {%endfor%}
+</select>
+<label for="per-date-from">Отсутствие с (было с: {{item.dur_from|date:"d.m.Y"}})</label>
+<input type="date" name="per-date-from" id="per-date-from">
+
+<label for="per-date-from">по (было по: {{item.dur_to|date:"d.m.Y"}})</label>
+<input type="date" name="per-date-to" onchange="vac_calc()" id="per-date-to">
+
+<label for="vac-days-count">Кол-во дней:</label>
+<input type="text" id="per-days-count" onchange="change_days(0)" name="per-days-count" value="{{item.days_count}}">
+
 </div>
-{%else%}
-{%endif%}
-
-{%if type == 2%}
-  <div id="vac-form-periods" class=".vac-form-periods">
-
-    <div class="vac-period">
-      <h4>Введите новые данные о периоде</h4>
-      <label for="per-date-from">Отпуск с: </label>
-      <input id="per-date-from" type="date" name="per-date-from" value="{{item.dur_from}}">
-
-      <label for="per-date-to">по: </label>
-      <input id="per-date-to"  readonly type="date" name="per-date-to" value="{{item.dur_to}}">
-      <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
-    </div>
-
-  </div>
-  {%else%}
-  {%endif%}
-
-
-  {%if type == 3%}
-    <div id="vac-form-periods" class=".vac-form-periods">
-      <h4>Оформление переноса периода: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
-      <div class="vac-period">
-        <h4>Введите данные о переносе</h4>
-        <label for="per-date-move-from">Отпуск с: </label>
-        <input id="per-date-from" type="date" name="per-date-move-from" value="">
-
-        <label for="per-date-move-to">по: </label>
-        <input id="per-date-to"  readonly type="date" name="per-date-move-to" value="">
-        <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-move-count" value="">
-        <label for="move-reason">Основание переноса: </label>
-        <textarea name="move-reason" id="move-reason" rows="8" cols="80"></textarea>
-      </div>
-
-    </div>
-    {%else%}
-    {%endif%}
-
-    {%if type == 4%}
-      <div id="vac-form-periods" class=".vac-form-periods">
-        <h4>Добавить комментарий: {{item.dur_from|date:"d.m.Y"}} по {{item.dur_to|date:"d.m.Y"}} кол-во дней: {{item.days_count}}</h4>
-        <textarea name="comm" rows="8" cols="80">{{item.comm}}</textarea>
-
-      </div>
-      {%else%}
-      {%endif%}
 
 
 <input class="button accept" type="submit" name="" value="Сохранить">
-<a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить период</a>
+<a href="{% url 'delitem_url' id=item.id%}" class="button cancel">Удалить запись</a>
 
   </form>
   </div>
@@ -129,21 +100,33 @@
   celebrates_new($('#per' + id + ' #per-date-from').val(), $('#per' + id + ' #per-date-to').val(), id)
   }
 
-  function vac_calc(date_from, date_to) {
+//   function vac_calc(date_from, date_to) {
 
-    date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
+//     date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
 
-    date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
+//     date_to = date_to.split('-')[2] + '.' + date_to.split('-')[1] + '.' + date_to.split('-')[0]
 
-    console.log(Date.parse(date_to));
-    console.log(date_from);
+//     console.log(Date.parse(date_to));
+//     console.log(date_from);
 
-    dcount = (( Date.parse(date_to) - Date.parse(date_from)) / 24 / 60 / 60 / 1000) + 1
+//     dcount = (( Date.parse(date_to) - Date.parse(date_from)) / 24 / 60 / 60 / 1000) + 1
 
-    console.log(dcount);
+//     console.log(dcount);
 
-    return(dcount)
-}
+//     return(dcount)
+// }
+
+$('#vac-reason').ready(function(){
+  console.log('hi')
+  $('#vac-reason').val({{item.reason.id}})
+}) 
+
+$('#vac-shift').ready(function(){
+  console.log('hi')
+  $('#vac-shift').val({{item.shift.id}})
+}) 
+  
+
 </script>
 
 {%endblock%}

@@ -133,26 +133,26 @@ function set_onclick() {
     emp_id = r.id.split('_')[1]
 
 
-    url = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/2'"
+    url = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "'"
     click = "location.href = '" + url
 
-    url2 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/1'"
-    click2 = "location.href = '" + url2
+    // url2 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/1'"
+    // click2 = "location.href = '" + url2
 
-    url3 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/3'"
-    click3 = "location.href = '" + url3
+    // url3 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/3'"
+    // click3 = "location.href = '" + url3
 
-    url4 = "/" + "vacshed" + "/" + "empinfo" + "/" + year + "/" + emp_id + "/'"
-    click4 = "location.href = '" + url4
+    // url4 = "/" + "vacshed" + "/" + "empinfo" + "/" + year + "/" + emp_id + "/'"
+    // click4 = "location.href = '" + url4
 
-    url5 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/4'"
-    click5 = "location.href = '" + url5
+    // url5 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/4'"
+    // click5 = "location.href = '" + url5
 
-    $('#durfrom_' + r.id).attr('onclick', click)
-    $('#city_' + id).attr('onclick', click2)
-    $('#movefrom' + id).attr('onclick', click3)
-    $('#emp_' + emp_id).attr('onclick', click4)
-    $('#comm_' + id).attr('onclick', click5)
+    // $('#durfrom_' + r.id).attr('onclick', click)
+    // $('#city_' + id).attr('onclick', click2)
+    // $('#movefrom' + id).attr('onclick', click3)
+    $('#emp_' + emp_id).attr('onclick', click)
+    // $('#comm_' + id).attr('onclick', click5)
   }
 }
 

@@ -32,7 +32,7 @@
       <input id="per-date-from" type="date" name="per-date-from" value="">
 
       <label for="per-date-to">по: </label>
-      <input id="per-date-to" onchange="" type="date" name="per-date-to" readonly    value="">
+      <input id="per-date-to" onchange="vac_calc()" type="date" name="per-date-to"  value="">
       <label for="per-days-count">на следующее кол-во дней:</label>
       <input id="per-days-count" onchange="change_days(0)" placeholder="Кол-во дней" type="text" name="per-days-count" value="">
     </div>
@@ -104,7 +104,7 @@
 
   }
 
-  function vac_calc(date_from, date_to) {
+  function vac_calc2(date_from, date_to) {
 
     date_from = date_from.split('-')[2] + '.' + date_from.split('-')[1] + '.' + date_from.split('-')[0]
 

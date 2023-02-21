@@ -244,7 +244,7 @@ def vacshed_addItem(request,id):
                             bound_shed = vacshed,
                             city = city,
                             child_year = child,
-                            reason = VacantionReason.objects.get(id=reason),
+                            reason = VacantionReasons.objects.get(id=reason),
                             shift = VacantionShifts.objects.get(id=shift)
                         )
                     else:
@@ -254,56 +254,47 @@ def vacshed_addItem(request,id):
                             dur_to = periods[i].split(':')[1],
                             days_count = periods[i].split(':')[2],
                             bound_shed = vacshed,
-                            reason = VacantionReason.objects.get(id=reason),
+                            reason = VacantionReasons.objects.get(id=reason),
                             shift = VacantionShifts.objects.get(id=shift)
 
                         )
 
             return render(request, 'vac_shed/new_item.html', context={'vacshed':vacshed})
 
-def vacshed_updItem(request, id, type):
+def vacshed_updItem(request, id):
     if request.user.is_authenticated:
         ndatefrom = request.POST.get('per-date-from')
         ndateto = request.POST.get('per-date-to')
         ndayscount = request.POST.get('per-days-count')
+        shift = request.POST.get('vac-shift')
+        reason = request.POST.get('vac-reason')
 
-        ncity = request.POST.get('city')
-        nchild = request.POST.get('child')
+        # ncity = request.POST.get('city')
+        # nchild = request.POST.get('child')
 
-        movefrom = request.POST.get('per-date-move-from')
-        moveto = request.POST.get('per-date-move-to')
-        daysmove = request.POST.get('per-days-move-count')
-        movereason = request.POST.get('move-reason')
+        # movefrom = request.POST.get('per-date-move-from')
+        # moveto = request.POST.get('per-date-move-to')
+        # daysmove = request.POST.get('per-days-move-count')
+        # movereason = request.POST.get('move-reason')
 
-        comm = request.POST.get('comm')
+        # comm = request.POST.get('comm')
+
+        shifts = VacantionShifts.objects.all()
+        reasons = VacantionReasons.objects.all()
 
 
         item = VacantionSheduleItem.objects.get(id=id)
         if request.method == 'GET':
-            return render(request, 'vac_shed/upd_item.html', context={'item':item, 'type':type})
+            return render(request, 'vac_shed/upd_item.html', context={'item':item, 'shifts':shifts, 'reasons':reasons})
         else:
-
-            if type == 2:
+            if ndatefrom != '' and ndateto != '' and ndayscount != '':
                 item.dur_from = ndatefrom
                 item.dur_to = ndateto
                 item.days_count = ndayscount
-                item.save()
-            else:
-                if type == 1:
-                    item.city = ncity
-                    item.child_year = nchild
-                    item.save()
-                else:
-                    if type == 3:
-                        item.move_from = movefrom
-                        item.move_to = moveto
-                        item.move_reason = movereason
-                        item.days_count_move = daysmove
-                        item.save()
-                    else:
-                        if type == 4:
-                            item.comm = comm
-                            item.save()
+                reason = VacantionReasons.objects.get(id=reason),
+                shift = VacantionShifts.objects.get(id=shift)
+            item.save()
+
             return redirect('/vacshed/create/' + str(item.bound_shed.id) + '/')
 
 def vacshed_check(request,id):
