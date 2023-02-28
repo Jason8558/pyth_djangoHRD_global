@@ -148,7 +148,7 @@ function set_onclick() {
     // url5 = "/" + "vacshed" + "/" + "itemupd" + "/" + id + "/4'"
     // click5 = "location.href = '" + url5
 
-    // $('#durfrom_' + r.id).attr('onclick', click)
+    $('#durfrom_' + r.id).attr('onclick', click)
     // $('#city_' + id).attr('onclick', click2)
     // $('#movefrom' + id).attr('onclick', click3)
     $('#emp_' + emp_id).attr('onclick', click)
