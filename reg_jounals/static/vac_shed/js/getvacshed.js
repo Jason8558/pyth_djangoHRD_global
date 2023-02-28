@@ -151,7 +151,7 @@ function set_onclick() {
     $('#durfrom_' + r.id).attr('onclick', click)
     // $('#city_' + id).attr('onclick', click2)
     // $('#movefrom' + id).attr('onclick', click3)
-    $('#emp_' + emp_id).attr('onclick', click)
+    // $('#emp_' + emp_id).attr('onclick', click)
     // $('#comm_' + id).attr('onclick', click5)
   }
 }
